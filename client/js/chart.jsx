@@ -1,66 +1,69 @@
 import React from 'react/addons';
+import ReactDOM from 'react-dom';
 import ContributionOverTimeChart from './contributionOverTimeChart';
 import ContributorBreakdownChart from './contributorBreakdownChart';
+import ContributorDendogram from './contributorDendogramChart';
 
 class Chart extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {};
-  }
-
-  componentDidMount() {
-    let el = React.findDOMNode(this);
-    if(this.props.data && this.props.chartType) {
-      let chart = ChartFactory(this.props.chartType, el);
-      this.setState({chart: chart});
+    constructor (props) {
+        super(props);
+        this.state = {};
     }
-  }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    if(nextProps.data === this.props.data) {
-      return false;
-    } else {
-      return true;
+    componentDidMount () {
+        let el = ReactDOM.findDOMNode(this);
+        if (this.props.chartInfo.type) {
+            let chart = this.ChartFactory(this.props.chartInfo.type, el);
+            this.props.onSvgCreate(chart.svg);
+        }
     }
-  }
 
-  componentDidUpdate(prevProps) {
-    let el = React.findDOMNode(this);
-    if(this.state.chart && (this.state.chart.type === this.props.chartType)) {
-      this.state.chart.update(el, this.getChartState());
-    } else {
-        let chart = this.ChartFactory(this.props.chartType, el);
-        this.setState({chart: chart});
+    shouldComponentUpdate (nextProps, nextState) {
+        if (nextProps.chartInfo === this.props.chartInfo) {
+            return false;
+        } else {
+            return true;
+        }
     }
-  }
 
-  getChartState() {
-    return {
-      data: this.props.data,
-      domain: this.props.domain
+    componentDidUpdate (prevProps) {
+        let el = ReactDOM.findDOMNode(this);
+        if (this.state.chart && (this.state.chart.type === this.props.chartInfo.type)) {
+            this.state.chart.update(el, this.getChartState());
+            this.props.onSvgCreate(this.state.chart.svg);
+        } else {
+            let chart = this.ChartFactory(this.props.chartInfo.type, el);
+            this.setState({chart: chart});
+            this.props.onSvgCreate(chart.svg);
+        }
     }
-  }
 
-  ChartFactory(type, el) {
-    switch(type) {
-      case 'contributionOverTime':
-        return new ContributionOverTimeChart(el, this.getChartState());
-      case 'contributorBreakdown':
-        return new ContributorBreakdownChart(el, this.getChartState());
+    getChartState () {
+        return {data: this.props.chartInfo.data, domain: this.props.domain};
     }
-  }
 
-  componentWillUpdate(){
-    let el = React.findDOMNode(this);
-  }
+    ChartFactory (type, el) {
+        switch (type) {
+            case 'contributionOverTime':
+                return new ContributionOverTimeChart(el, this.getChartState());
+            case 'contributorBreakdown':
+                return new ContributorBreakdownChart(el, this.getChartState());
+            case 'contributorDendogram':
+                return new ContributorDendogram(el, this.getChartState());
+        }
+    }
 
-  render() {
-    return (
-      <div>
-        <div className="chart"></div>
-      </div>
-    );
-  }
+    componentWillUpdate () {
+        let el = ReactDOM.findDOMNode(this);
+    }
+
+    render () {
+        return (
+            <div>
+                <div className="chart"></div>
+            </div>
+        );
+    }
 }
 
 export default Chart;

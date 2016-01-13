@@ -14,16 +14,11 @@ class ContributorBreakdownChart {
     this._drawPoints(el, state.data);
   }
 
-  // let data = []
-  //   {name: 'Cand1', individual: '45', corporate: '25', other: '30'},
-  //   {name: 'Cand2', individual: '25', corporate: '45', other: '30'},
-  //   {name: 'Cand3', individual: '45', corporate: '30', other: '25'}
-  // ];
 
   _drawPoints(el, data) {
     this.svg.selectAll('*').remove();
     let width = el.offsetWidth;
-    let height = el.offsetHeight;
+    let height = el.offsetHeight < 600 ? el.offsetHeight : 600;
 
     let margin = {top: 50, right: 100, bottom: 50, left: 100};
 
@@ -31,7 +26,7 @@ class ContributorBreakdownChart {
       .rangeRoundBands([0, width], .5);
 
     let y = d3.scale.linear()
-      .rangeRound([height, 0], .4);
+      .rangeRound([height, 0], .9);
 
     let color = d3.scale.ordinal()
       .range(['#98abc5', '#8a89a6', '#7b6888']);
@@ -51,11 +46,10 @@ class ContributorBreakdownChart {
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    color.domain(d3.keys(data[0]).filter(function(key){ return key !== 'name' }));
+    color.domain(d3.keys(data[0]).filter(function(key){ return key !== 'name'; }));
 
     data.forEach(function(d){
       let y0 = 0;
-      console.log(d);
       d.percents = color.domain().map(function(type){ return { type: type, y0: y0, y1: y0 += +d[type] }; });
       d.total = 100;
     });
@@ -82,7 +76,7 @@ class ContributorBreakdownChart {
       .data(data)
       .enter().append('g')
       .attr('class', 'g')
-      .attr('transform', function(d){ return 'translate(' + x(d.name) + ',0)'});
+      .attr('transform', function(d){ return 'translate(' + x(d.name) + ',0)';});
 
     candidate.selectAll('rect')
       .data(function(d){ return d.percents; })
