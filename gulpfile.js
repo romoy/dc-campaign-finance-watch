@@ -16,7 +16,8 @@ var fs = require('fs');
 var mocha = require('gulp-mocha');
 var runSequence = require('run-sequence');
 
-
+// Files to process
+var TEST_FILES = 'tests/**/*.js';
 
 var watchifyOpts = {
     poll: true
@@ -86,4 +87,15 @@ gulp.task('browsersync', ['bundle', 'nodemon'], function () {
         },
         port: '3001'
     });
+});
+
+
+/**
+ * Run unit tests
+ */
+gulp.task('test', function() {
+    return gulp.src(TEST_FILES, {read: false})
+        .pipe(mocha({
+            require: [__dirname + '/tests/utils/jsdom'] // Prepare environement for React/JSX testing
+        }));
 });
