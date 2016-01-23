@@ -13,6 +13,9 @@ var browserSync = require('browser-sync');
 var nodemon = require('gulp-nodemon');
 var path = require('path');
 var fs = require('fs');
+var mocha = require('gulp-mocha');
+var runSequence = require('run-sequence');
+
 
 
 var watchifyOpts = {

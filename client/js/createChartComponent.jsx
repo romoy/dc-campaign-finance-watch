@@ -26,7 +26,7 @@ class CreateChartComponent extends React.Component {
         };
     }
 
-    _handleCandidateSelected (candidate) {
+    _handleCandidateSelected(candidate) {
         let selectedCandidates = this.state.selectedCandidates;
         selectedCandidates.unshift(candidate);
         this.setState({selectedCandidates: selectedCandidates});
@@ -68,6 +68,7 @@ class CreateChartComponent extends React.Component {
         console.log(range);
         var chart = this.state.dataSet;
         var candidates = this.state.selectedCandidates;
+
         switch (chart) {
             case "contributionOverTime":
                 dataPromise = ProcessContributionsOverTime(candidates, range);

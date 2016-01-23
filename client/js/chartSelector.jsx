@@ -18,8 +18,10 @@ class ChartSelectorComponent extends React.Component {
                 <h4 className="instructions">
                     <p> 1. Choose to create a visualization based on </p>
                 </h4>
-                <select ref="chart" onChange={this._handleChange.bind(this)}>
-                    <option selected value="contributionOverTime">Contributions Over Time</option>
+                <select ref="chart"
+                        defaultValue="contributionOverTime"
+                        onChange={this._handleChange.bind(this)}>
+                    <option value="contributionOverTime">Contributions Over Time</option>
                     <option value="contributorBreakdown">Breakdown of Contributions</option>
                     <option value="contributorDendogram">Tree of Contributors</option>
                 </select>
