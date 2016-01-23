@@ -14,7 +14,8 @@ var nodemon = require('gulp-nodemon');
 var path = require('path');
 var fs = require('fs');
 var mocha = require('gulp-mocha');
-var runSequence = require('run-sequence');
+var plug = require('gulp-load-plugins')({ lazy: true });
+var babel = require('babel-core/register');
 
 // Files to process
 var TEST_FILES = 'tests/**/*.js';
@@ -89,13 +90,12 @@ gulp.task('browsersync', ['bundle', 'nodemon'], function () {
     });
 });
 
-
-/**
- * Run unit tests
- */
-gulp.task('test', function() {
-    return gulp.src(TEST_FILES, {read: false})
-        .pipe(mocha({
-            require: [__dirname + '/tests/utils/jsdom'] // Prepare environement for React/JSX testing
+gulp.task('test', function () {
+    return gulp.src('./tests/**/*.js', { read: false })
+        .pipe(plug.mocha({
+            require: [__dirname + '/tests/utils/jsdom'],
+            compilers: {
+                js: babel
+            }
         }));
 });
