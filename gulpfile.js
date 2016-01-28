@@ -16,6 +16,7 @@ var fs = require('fs');
 var mocha = require('gulp-mocha');
 var plug = require('gulp-load-plugins')({ lazy: true });
 var babel = require('babel-core/register');
+var babelGulp = require('gulp-babel');
 
 // Files to process
 var TEST_FILES = 'tests/**/*.js';
