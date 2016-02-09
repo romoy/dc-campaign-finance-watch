@@ -10,7 +10,12 @@ class DownloadChartComponent extends React.Component {
 
     render () {
         return (
-            <Button onClick={this.props.onDownload}>Download Visualization</Button>
+            <Button
+                className="downloadVisualization"
+                onClick={this.props.onDownload}
+            >
+                Download Visualization
+            </Button>
         );
     }
 }

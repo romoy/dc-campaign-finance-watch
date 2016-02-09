@@ -92,9 +92,12 @@ gulp.task('browsersync', ['bundle', 'nodemon'], function () {
 });
 
 gulp.task('test', function () {
-    return gulp.src('./tests/**/*.js', { read: false })
+    return gulp.src('./test/**/*.js', { read: false })
+        .pipe(babel({
+            presets: ['es2015']
+        }))
         .pipe(plug.mocha({
-            require: [__dirname + '/tests/utils/jsdom'],
+            require: [__dirname + '/test/utils/jsdom'],
             compilers: {
                 js: babel
             }
