@@ -12,7 +12,7 @@ describe('Download Chart Component', function () {
     it('renders', function(){
         const shallowRender = ReactTestUtils.createRenderer();
         shallowRender.render(React.createElement(DownloadChartComponent));
-        expect(shallowRender.getRenderOutput()).to.not.exist;
+        expect(shallowRender.getRenderOutput().className).to.not.exist;
     });
 
 });
