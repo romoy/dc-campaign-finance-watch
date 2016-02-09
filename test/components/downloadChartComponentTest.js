@@ -7,12 +7,11 @@ describe('Download Chart Component', function () {
     var BS = require('react-bootstrap');
     var expect = chai.expect;
     var Button = BS.Button;
-    var DownloadChartComponent = React.createFactory(require('../../lib/js/downloadChartComponent'));
+    var DownloadChartComponent = React.createFactory(require('../../client/js/downloadChartComponent'));
 
     it('renders', function(){
-        const shallowRender = ReactTestUtils.createRenderer();
-        shallowRender.render(React.createElement(DownloadChartComponent));
-        expect(shallowRender.getRenderOutput().className).to.not.exist;
+        var downloadChartComponent = ReactTestUtils.renderIntoDocument(DownloadChartComponent);
+        expect(downloadChartComponent).to.not.exist;
     });
 
 });
