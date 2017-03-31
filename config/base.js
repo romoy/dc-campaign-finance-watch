@@ -15,6 +15,7 @@ module.exports = {
   devServer: {
     contentBase: './src/',
     historyApiFallback: true,
+    https: true,
     hot: true,
     port: defaultSettings.port,
     publicPath: defaultSettings.publicPath,
