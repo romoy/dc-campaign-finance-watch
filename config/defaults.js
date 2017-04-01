@@ -57,10 +57,6 @@ function getDefaultModules() {
         loader: 'file-loader'
       },
       {
-        test: /\.json/,
-        loader: 'json-loader'
-      },
-      {
         test: /\.md/,
         loader: 'html-loader!markdown-loader'
       }
