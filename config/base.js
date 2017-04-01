@@ -1,11 +1,9 @@
 'use strict';
+let webpack = require('webpack');
 let path = require('path');
 let defaultSettings = require('./defaults');
 let additionalPaths = [];
 module.exports = {
-  additionalPaths: additionalPaths,
-  port: defaultSettings.port,
-  debug: true,
   devtool: 'eval',
   output: {
     path: path.join(__dirname, '/../dist/assets'),
@@ -22,7 +20,6 @@ module.exports = {
   },
   resolve: {
     extensions: [
-      '',
       '.js',
       '.jsx'
     ],
@@ -36,7 +33,13 @@ module.exports = {
     }
   },
   module: {},
-  postcss: function () {
-    return [];
-  }
+  plugins: [
+    new webpack.LoaderOptionsPlugin({
+      options: {
+        debug: true,
+        port: defaultSettings.port,
+        additionalPaths: additionalPaths
+      }
+    })
+  ]
 };

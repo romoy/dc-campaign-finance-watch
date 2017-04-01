@@ -1,4 +1,4 @@
-FROM node:boron
+FROM node:wheezy
 
 # Create app directory and define work dir
 WORKDIR /usr/src/dc-campaign-finance-watch
