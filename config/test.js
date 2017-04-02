@@ -29,6 +29,10 @@ module.exports = {
             path.join(__dirname, '/../src'),
             path.join(__dirname, '/../test')
           ]
+      },
+      {
+        test: /\.md/,
+        loader: 'html-loader!markdown-loader'
       }
     ]
   },
@@ -38,7 +42,8 @@ module.exports = {
       helpers: path.join(__dirname, '/../test/helpers'),
       components: srcPath + 'components/',
       styles: srcPath + 'styles/',
-      config: srcPath + 'config/' + process.env.REACT_WEBPACK_ENV
+      config: srcPath + 'config/' + process.env.REACT_WEBPACK_ENV,
+      'react/lib/Object.assign': 'object-assign'
     }
   },
   plugins: []
