@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import LandingPage from './components/LandingPage.jsx';
+import Ruotes from './components/Routes.jsx';
 
 require('./styles/main.css');
 require('./styles/reactdaypicker.css');
 require('./styles/fixed-data-table.min.css');
 
-ReactDOM.render(<LandingPage/>, document.getElementById('app'));
+ReactDOM.render(<Ruotes/>, document.getElementById('app'));

@@ -1,5 +1,6 @@
 import React from 'react';
-import {browserHistory, IndexRoute, Route, Router} from 'react-router';
+import {IndexRoute, Route, Router} from 'react-router';
+import createBrowserHistory from 'history/createBrowserHistory';
 import ShellComponent from './layout/shell.jsx';
 import SearchComponent from './searchComponent.jsx';
 import DataComponent from './data/dataComponent.jsx';
@@ -10,15 +11,16 @@ import CampaignDetailComponent from './campaign/campaignDetailComponent.jsx';
 import Dashboard from './dashboard/dashboardComponent.jsx';
 import ContributionsGraphContainer from './graphs/contributions/contributionsGraphContainer';
 
-class LandingPage extends React.Component {
+export default class LandingPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
 
   render() {
+    const history = createBrowserHistory();
     return (
-      <Router history={browserHistory}>
+      <Router history={history}>
         <Route path="/" component={ShellComponent}>
           <IndexRoute component={Dashboard}/>
           <Route path="compare" component={SearchComponent}/>
@@ -33,5 +35,3 @@ class LandingPage extends React.Component {
     );
   }
 }
-
-export default LandingPage;
