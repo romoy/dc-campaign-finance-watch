@@ -9,6 +9,6 @@ import CreateComponent from '../../helpers/shallowRenderHelper.js';
 describe('renders', () => {
 
   it('should render landing page', () => {
-    const LandingPageComponent = CreateComponent(LandingPage);
+    const LandingPageComponent = CreateComponent(<LandingPage/>);
   });
 });
