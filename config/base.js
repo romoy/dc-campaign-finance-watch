@@ -3,6 +3,7 @@ let webpack = require('webpack');
 let path = require('path');
 let defaultSettings = require('./defaults');
 let additionalPaths = [];
+
 module.exports = {
   devtool: 'eval',
   output: {
@@ -35,11 +36,9 @@ module.exports = {
   module: {},
   plugins: [
     new webpack.LoaderOptionsPlugin({
-      options: {
-        debug: true,
-        port: defaultSettings.port,
-        additionalPaths: additionalPaths
-      }
+      debug: true,
+      port: defaultSettings.port,
+      additionalPaths: additionalPaths
     })
   ]
 };

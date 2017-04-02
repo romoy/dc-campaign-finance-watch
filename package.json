@@ -1,6 +1,6 @@
 {
   "name": "dcCampaignFinanceWatch",
-  "version": "0.0.1",
+  "version": "1.0.1",
   "scripts": {
     "clean": "rimraf dist/*",
     "copy": "copyfiles -f ./src/index.html ./src/favicon.ico ./dist",
@@ -40,7 +40,7 @@
     "file-loader": "^0.11.1",
     "glob": "^7.1.1",
     "html-loader": "^0.4.5",
-    "isparta-instrumenter-loader": "^1.0.1",
+    "isparta-loader": "^2.0.0",
     "karma": "^1.5.0",
     "karma-chai": "^0.1.0",
     "karma-coverage": "^1.1.1",

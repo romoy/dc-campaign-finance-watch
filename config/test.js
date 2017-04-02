@@ -12,7 +12,7 @@ module.exports = {
       {
         enforce: 'pre',
         test: /\.(js|jsx)$/,
-        loader: 'isparta-instrumenter-loader',
+        loader: 'isparta-loader',
         include: [
           path.join(__dirname, '/../src')
         ]
@@ -24,13 +24,11 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         loader: 'babel-loader',
-        include: [].concat(
-          baseConfig.additionalPaths,
+        include:
           [
             path.join(__dirname, '/../src'),
             path.join(__dirname, '/../test')
           ]
-        )
       }
     ]
   },
