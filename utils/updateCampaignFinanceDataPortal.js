@@ -16,8 +16,12 @@ const log = require('loglevel');
 // Expenditures
 // http://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Public_Service_WebMercator/MapServer/35/query?where=&text=&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=&returnGeometry=true&returnTrueCurves=false&maxAllowableOffset=&geometryPrecision=&outSR=&returnIdsOnly=false&returnCountOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&gdbVersion=&returnDistinctValues=false&resultOffset=&resultRecordCount=&f=pjson
 
+// TODO check the return format
+// TODO verify the data from the dump
+
 const getDCCampaignLastEntry = () =>
   request({
+    url: 'http://data.codefordc.org',
 
   });
 
@@ -34,10 +38,13 @@ const getDCGISTDATAAsJSON = (mapServerId, objectId) =>
 
 const updateDCCampaignData = () =>
   request({
+    url: 'http://data.codefordc.org',
 
   });
 
 const mapServerId = 35;
+
+// Once an entry is successful, loop me until a null is hit on the GIS data side
 getDCCampaignLastEntry(mapServerId)
   .then(resp => {
       // get id
