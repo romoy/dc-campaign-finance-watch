@@ -27,11 +27,11 @@ const getDCCampaignLastEntry = () =>
 
 const getDCGISTDATAAsJSON = (mapServerId, objectId) =>
   request({
-    url: 'http://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Public_Service_WebMercator/MapServer/'+ mapServerId +'/query?where=',
+    url: 'http://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Public_Service_WebMercator/MapServer/' + mapServerId + '/query?where=',
     json: true,
     method: 'GET',
     qs: {
-    objectIds : objectId,
+      objectIds: objectId,
       f: pjson
     }
   });
@@ -39,7 +39,8 @@ const getDCGISTDATAAsJSON = (mapServerId, objectId) =>
 const updateDCCampaignData = () =>
   request({
     url: 'http://data.codefordc.org',
-
+    json: true,
+    method: 'GET'
   });
 
 const mapServerId = 35;
@@ -47,13 +48,13 @@ const mapServerId = 35;
 // Once an entry is successful, loop me until a null is hit on the GIS data side
 getDCCampaignLastEntry(mapServerId)
   .then(resp => {
-      // get id
-      const objectId = '';
-      return getDCGISTDATAAsJSON(objectId)
-        .then(resp => {
-          // response json
-          // insert json
-          return updateDCCampaignData();
-        });
+    // get id
+    const objectId = '';
+    return getDCGISTDATAAsJSON(objectId)
+      .then(resp => {
+        // response json
+        // insert json
+        return updateDCCampaignData();
+      });
 
   });
