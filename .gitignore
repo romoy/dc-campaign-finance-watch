@@ -40,3 +40,4 @@ dc-campaign-finance-mongodatabase
 .DS_Store
 .vscode/
 *.rdb
+.gitconfig
