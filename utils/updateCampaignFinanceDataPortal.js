@@ -32,7 +32,18 @@ const getDCGISTDATAAsJSON = (mapServerId, objectId) =>
     method: 'GET',
     qs: {
       objectIds: objectId,
-      f: pjson
+      f: 'json'
+    }
+  });
+
+const dataStoreSearch = () =>
+  request({
+    url: 'http://data.codefordc.org/api/action/datastore_search',
+    json: true,
+    qs: {
+      resource_id: 'e9c01a67-5bd5-4ecb-b11f-cfcdee43b08a',
+      q: 'Artee RT Milligan',
+      // limit: '1'
     }
   });
 
@@ -40,13 +51,13 @@ const updateDCCampaignData = () =>
   request({
     url: 'http://data.codefordc.org',
     json: true,
-    method: 'GET'
+    method: 'PUT'
   });
 
 const mapServerId = 35;
 
 // Once an entry is successful, loop me until a null is hit on the GIS data side
-getDCCampaignLastEntry(mapServerId)
+const dcCampaignLastEntry = getDCCampaignLastEntry(mapServerId)
   .then(resp => {
     // get id
     const objectId = '';
@@ -57,4 +68,9 @@ getDCCampaignLastEntry(mapServerId)
         return updateDCCampaignData();
       });
 
+  });
+
+getDCGISTDATAAsJSON(mapServerId)
+  .then(resp => {
+    console.log(JSON.stringify(resp.body));
   });
