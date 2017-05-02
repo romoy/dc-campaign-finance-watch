@@ -3,7 +3,7 @@
 const argv = require('minimist')(process.argv);
 const bluebird = require('bluebird');
 const request = bluebird.promisify(require('request'));
-const log = require('loglevel');
+const rp = require('request-promise');
 
 // check the last data entry
 // request the next data
@@ -12,6 +12,7 @@ const log = require('loglevel');
 
 // Contributions
 //http://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Public_Service_WebMercator/MapServer/34/query?where=&objectIds=1002&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=&returnGeometry=true&returnTrueCurves=false&maxAllowableOffset=&geometryPrecision=&outSR=&returnIdsOnly=false&returnCountOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&gdbVersion=&returnDistinctValues=false&resultOffset=&resultRecordCount=&f=pjson
+var contributionServerURL = 'http://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Public_Service_WebMercator/MapServer/34';
 
 // Expenditures
 // http://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Public_Service_WebMercator/MapServer/35/query?where=&text=&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=&returnGeometry=true&returnTrueCurves=false&maxAllowableOffset=&geometryPrecision=&outSR=&returnIdsOnly=false&returnCountOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&gdbVersion=&returnDistinctValues=false&resultOffset=&resultRecordCount=&f=pjson
@@ -58,19 +59,31 @@ const mapServerId = 35;
 
 // Once an entry is successful, loop me until a null is hit on the GIS data side
 const dcCampaignLastEntry = getDCCampaignLastEntry(mapServerId)
+.then(resp => {
+  // get id
+  const objectId = '';
+  return getDCGISTDATAAsJSON(objectId)
   .then(resp => {
-    // get id
-    const objectId = '';
-    return getDCGISTDATAAsJSON(objectId)
-      .then(resp => {
-        // response json
-        // insert json
-        return updateDCCampaignData();
-      });
-
+    // response json
+    // insert json
+    return updateDCCampaignData();
   });
 
-getDCGISTDATAAsJSON(mapServerId)
-  .then(resp => {
-    console.log(JSON.stringify(resp.body));
-  });
+});
+
+rp({
+  method: 'GET',
+  uri: contributionServerURL +'/find',
+  qs: {
+    f: 'json',
+    searchText: 'Jones'
+
+  },
+  json: true
+})
+.then((res) => {
+  console.log(JSON.stringify(res));
+});
+
+
+
