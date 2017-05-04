@@ -1,9 +1,15 @@
 var webpackCfg = require('./webpack.config');
 
 module.exports = function(config) {
-  config.set({
+  var configuration = {
     basePath: '',
     browsers: ['Chrome'],
+    customLaunchers: {
+      Chrome_travis_ci: {
+        base: 'Chrome',
+        flags: ['--no-sandbox']
+      }
+    },
     files: ['test/loadtests.js'],
     port: 9876,
     captureTimeout: 60000,
@@ -24,5 +30,9 @@ module.exports = function(config) {
       dir: 'coverage/',
       reporters: [{ type: 'html' }, { type: 'text' }]
     }
-  });
+  };
+  if (process.env.TRAVIS) {
+    configuration.browsers = ['Chrome_travis_ci'];
+  }
+  config.set(configuration);
 };
