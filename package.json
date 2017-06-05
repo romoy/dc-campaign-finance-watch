@@ -58,6 +58,7 @@
     "karma-sourcemap-loader": "^0.3.5",
     "karma-webpack": "^2.0.3",
     "koop": "^3.5.1",
+    "koop-agol": "^3.14.4",
     "lodash": "^4.12.0",
     "loglevel": "^1.4.1",
     "markdown-loader": "^0.1.7",
