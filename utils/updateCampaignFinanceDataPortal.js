@@ -4,6 +4,16 @@ const argv = require('minimist')(process.argv);
 const bluebird = require('bluebird');
 const request = bluebird.promisify(require('request'));
 const rp = require('request-promise');
+const Koop = require('koop');
+const koop = new Koop();
+const agol = require('koop-agol');
+koop.register(agol);
+
+const express = require('express');
+const app = express();
+app.use('/koop', koop.server);
+app.listen('8080');
+
 
 // check the last data entry
 // request the next data
@@ -71,7 +81,7 @@ const dcCampaignLastEntry = getDCCampaignLastEntry(mapServerId)
 
 });
 
-rp({
+const find = () => rp({
   method: 'GET',
   uri: contributionServerURL +'/find',
   qs: {
@@ -84,6 +94,4 @@ rp({
 .then((res) => {
   console.log(JSON.stringify(res));
 });
-
-
 

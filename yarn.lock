@@ -1739,6 +1739,10 @@ config@^1.17.1, config@^1.19.0, config@^1.20.1, config@^1.24.0:
     json5 "0.4.0"
     os-homedir "1.0.2"
 
+config@~0.4.35:
+  version "0.4.37"
+  resolved "https://registry.yarnpkg.com/config/-/config-0.4.37.tgz#98a70b99811b1e284f6d3053d9f1e970398e4df9"
+
 configstore@^1.0.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/configstore/-/configstore-1.4.0.tgz#c35781d0501d268c25c54b8b17f6240e8a4fb021"
@@ -4550,6 +4554,16 @@ koop-cache-memory@^1.0.2:
     highland "^3.0.0-beta.2"
     lodash "^4.17.4"
 
+koop-ckan@^0.0.9:
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/koop-ckan/-/koop-ckan-0.0.9.tgz#68f4ac79809ac67578e2957f278354498f3f6779"
+  dependencies:
+    config "~0.4.35"
+    csv "~0.4.0"
+    ejs "~1.0.0"
+    request "^2.51.0"
+    sphericalmercator "~1.0.2"
+
 koop-localfs@^1.1.0, koop-localfs@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/koop-localfs/-/koop-localfs-1.1.1.tgz#409e4140b65adba6117d292bfc764bde91b22654"
@@ -7057,7 +7071,7 @@ request-promise@^4.2.0:
     request-promise-core "1.1.1"
     stealthy-require "^1.0.0"
 
-request@2, request@^2.62.0, request@^2.67.0, request@^2.70.0, request@^2.72.0, request@^2.74.0, request@^2.75.0, request@^2.79.0, request@^2.81.0, request@~2.81.0:
+request@2, request@^2.51.0, request@^2.62.0, request@^2.67.0, request@^2.70.0, request@^2.72.0, request@^2.74.0, request@^2.75.0, request@^2.79.0, request@^2.81.0, request@~2.81.0:
   version "2.81.0"
   resolved "https://registry.yarnpkg.com/request/-/request-2.81.0.tgz#c6928946a0e06c5f8d6f8a9333469ffda46298a0"
   dependencies:
