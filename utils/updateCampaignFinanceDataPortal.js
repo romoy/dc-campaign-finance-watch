@@ -4,21 +4,12 @@ const argv = require('minimist')(process.argv);
 const bluebird = require('bluebird');
 const request = bluebird.promisify(require('request'));
 const rp = require('request-promise');
-const Koop = require('koop');
-const koop = new Koop();
-const agol = require('koop-agol');
-koop.register(agol);
-
-const express = require('express');
-const app = express();
-app.use('/koop', koop.server);
-app.listen('8080');
 
 
-// check the last data entry
-// request the next data
-// insert the data in open data
-// loop through until the request for more data return empty
+// TODO check the last data entry
+// TODO request the next data
+// TODO insert the data in open data
+// TODO loop through until the request for more data return empty
 
 // Contributions
 //http://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Public_Service_WebMercator/MapServer/34/query?where=&objectIds=1002&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=&returnGeometry=true&returnTrueCurves=false&maxAllowableOffset=&geometryPrecision=&outSR=&returnIdsOnly=false&returnCountOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&gdbVersion=&returnDistinctValues=false&resultOffset=&resultRecordCount=&f=pjson
@@ -26,72 +17,39 @@ var contributionServerURL = 'http://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS
 
 // Expenditures
 // http://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Public_Service_WebMercator/MapServer/35/query?where=&text=&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=&returnGeometry=true&returnTrueCurves=false&maxAllowableOffset=&geometryPrecision=&outSR=&returnIdsOnly=false&returnCountOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&gdbVersion=&returnDistinctValues=false&resultOffset=&resultRecordCount=&f=pjson
+var expendituresServerURL = 'http://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Public_Service_WebMercator/MapServer/35';
 
 // TODO check the return format
 // TODO verify the data from the dump
 
-const getDCCampaignLastEntry = () =>
-  request({
-    url: 'http://data.codefordc.org',
-
-  });
-
-const getDCGISTDATAAsJSON = (mapServerId, objectId) =>
-  request({
-    url: 'http://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Public_Service_WebMercator/MapServer/' + mapServerId + '/query?where=',
-    json: true,
-    method: 'GET',
-    qs: {
-      objectIds: objectId,
-      f: 'json'
-    }
-  });
-
-const dataStoreSearch = () =>
+const dcDataStoreSearch = (resourceId, query) =>
   request({
     url: 'http://data.codefordc.org/api/action/datastore_search',
     json: true,
     qs: {
-      resource_id: 'e9c01a67-5bd5-4ecb-b11f-cfcdee43b08a',
-      q: 'Artee RT Milligan',
+      resource_id: resourceId,
+      q: query,
       // limit: '1'
     }
+  })
+  .then((res) => {
+    console.log(JSON.stringify(res,null, 2));
   });
 
-const updateDCCampaignData = () =>
-  request({
-    url: 'http://data.codefordc.org',
-    json: true,
-    method: 'PUT'
-  });
-
-const mapServerId = 35;
-
-// Once an entry is successful, loop me until a null is hit on the GIS data side
-const dcCampaignLastEntry = getDCCampaignLastEntry(mapServerId)
-.then(resp => {
-  // get id
-  const objectId = '';
-  return getDCGISTDATAAsJSON(objectId)
-  .then(resp => {
-    // response json
-    // insert json
-    return updateDCCampaignData();
-  });
-
-});
-
-const find = () => rp({
+const agolQuery = (baseUrl, searchText) => rp({
   method: 'GET',
-  uri: contributionServerURL +'/find',
+  uri: baseUrl +'/find',
   qs: {
-    f: 'json',
-    searchText: 'Jones'
+    f: 'pjson',
+    searchText: searchText
 
   },
   json: true
 })
 .then((res) => {
-  console.log(JSON.stringify(res));
+  console.log(JSON.stringify(res,null, 2));
 });
 
+agolQuery(contributionServerURL, 'fenty');
+// agolQuery(expendituresServerURL, 'fenty');
+// dcDataStoreSearch('e9c01a67-5bd5-4ecb-b11f-cfcdee43b08a', 'fenty');
