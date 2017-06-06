@@ -36,13 +36,14 @@ const dcDataStoreSearch = (resourceId, query) =>
     console.log(JSON.stringify(res,null, 2));
   });
 
+// API reference http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#/Query_Map_Service_Layer/02r3000000p1000000/
 const agolQuery = (baseUrl, searchText) => rp({
   method: 'GET',
-  uri: baseUrl +'/find',
+  uri: baseUrl +'/query',
   qs: {
-    f: 'pjson',
-    searchText: searchText
-
+    f: 'json',
+    text: searchText,
+    outFields: '*'
   },
   json: true
 })
@@ -50,6 +51,6 @@ const agolQuery = (baseUrl, searchText) => rp({
   console.log(JSON.stringify(res,null, 2));
 });
 
-agolQuery(contributionServerURL, 'fenty');
+agolQuery(contributionServerURL, 'Adam');
 // agolQuery(expendituresServerURL, 'fenty');
 // dcDataStoreSearch('e9c01a67-5bd5-4ecb-b11f-cfcdee43b08a', 'fenty');
