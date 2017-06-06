@@ -51,6 +51,6 @@ const agolQuery = (baseUrl, searchText) => rp({
   console.log(JSON.stringify(res,null, 2));
 });
 
-agolQuery(contributionServerURL, 'Adam');
-// agolQuery(expendituresServerURL, 'fenty');
+// agolQuery(contributionServerURL, 'Adam');
+agolQuery(expendituresServerURL, 'fenty');
 // dcDataStoreSearch('e9c01a67-5bd5-4ecb-b11f-cfcdee43b08a', 'fenty');
